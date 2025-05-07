@@ -1,12 +1,12 @@
 <script lang="ts">
-	import LightSwitch from '$lib/components/lightswitch/LightSwitch.svelte';
 	import '../app.css';
-	import { ModeWatcher } from 'mode-watcher';
+	import { Toaster } from '@skeletonlabs/skeleton-svelte';
+	import { toastFactory } from '$lib/components/toaster/Toaster';
 
 	let { children } = $props();
 </script>
 
-<ModeWatcher />
-<LightSwitch />
-
-{@render children()}
+<div class="bg-primary-100-900 h-svh">
+	{@render children()}
+	<Toaster toaster={toastFactory} />
+</div>
