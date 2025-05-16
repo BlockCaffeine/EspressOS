@@ -6,7 +6,7 @@
 	let { children } = $props();
 </script>
 
-<div class="bg-primary-100-900 h-svh">
+<div class="h-svh bg-[#dcb98c]">
 	{@render children()}
 	<Toaster toaster={toastFactory} />
 </div>

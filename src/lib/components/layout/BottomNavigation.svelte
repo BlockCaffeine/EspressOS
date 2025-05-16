@@ -1,53 +1,69 @@
 <script lang="ts">
-	import { ChartArea, type Icon as IconType, House, Plus, Settings2, User } from '@lucide/svelte';
+	import { page } from '$app/state';
+	import { ChartArea, type Icon as IconType, House, Coffee } from '@lucide/svelte';
 
 	interface NavItem {
 		icon: typeof IconType;
 		tooltip: string;
 		sr: string;
 		tooltipId: string;
+		navPage: string;
 		rounded?: string;
 		isCenter?: boolean;
 	}
 
 	const navItems: NavItem[] = [
-		{ icon: House, tooltip: 'Home', sr: 'Home', tooltipId: 'tooltip-home', rounded: 's' },
-		{ icon: ChartArea, tooltip: 'Wallet', sr: 'Statistics', tooltipId: 'tooltip-wallet' },
 		{
-			icon: Plus,
+			icon: House,
+			tooltip: 'Home',
+			sr: 'Home',
+			navPage: '/app',
+			tooltipId: 'tooltip-home',
+			rounded: 's'
+		},
+		{
+			icon: Coffee,
 			tooltip: 'Create new item',
 			sr: 'New item',
+			navPage: '/app/shop',
 			tooltipId: 'tooltip-new',
 			isCenter: true
 		},
-		{ icon: Settings2, tooltip: 'Settings', sr: 'Settings', tooltipId: 'tooltip-settings' },
-		{ icon: User, tooltip: 'Profile', sr: 'Profile', tooltipId: 'tooltip-profile', rounded: 'e' }
+		{
+			icon: ChartArea,
+			tooltip: 'Wallet',
+			sr: 'Statistics',
+			navPage: '/app/stats',
+			tooltipId: 'tooltip-wallet'
+		}
 	];
 </script>
 
 {#snippet navButton(item: NavItem)}
-	{#if item.isCenter}
+	{#if item.navPage === page.url.pathname}
 		<div class="flex items-center justify-center">
-			<button
+			<a
 				data-tooltip-target={item.tooltipId}
 				type="button"
-				class="group inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-medium hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
+				class="group inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#e8c496] font-medium hover:bg-[#6f512a] focus:ring-4 focus:ring-[#f8b55e] focus:outline-none"
+				href={item.navPage}
 			>
 				<item.icon color="white" />
 				<span class="sr-only">{item.sr}</span>
-			</button>
+			</a>
 		</div>
 	{:else}
-		<button
+		<a
 			data-tooltip-target={item.tooltipId}
 			type="button"
-			class={`group inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 ${
+			class={`group inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 ${
 				item.rounded === 's' ? 'rounded-s-full' : item.rounded === 'e' ? 'rounded-e-full' : ''
 			}`}
+			href={item.navPage}
 		>
 			<item.icon />
 			<span class="sr-only">{item.sr}</span>
-		</button>
+		</a>
 	{/if}
 {/snippet}
 
@@ -55,7 +71,7 @@
 	<div
 		id={item.tooltipId}
 		role="tooltip"
-		class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700"
+		class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300"
 	>
 		{item.tooltip}
 		<div class="tooltip-arrow" data-popper-arrow></div>
@@ -63,10 +79,8 @@
 {/snippet}
 
 <!-- Actual navigation container -->
-<div
-	class="fixed bottom-4 left-1/2 z-50 h-16 w-11/12 max-w-lg -translate-x-1/2 rounded-full border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700"
->
-	<div class="mx-auto grid h-full max-w-lg grid-cols-5">
+<div class="h-16 w-full rounded-t-xl border-t border-gray-200 bg-white">
+	<div class="mx-auto grid h-full max-w-lg grid-cols-3">
 		{#each navItems as item}
 			{@render navButton(item)}
 			{@render navTooltip(item)}

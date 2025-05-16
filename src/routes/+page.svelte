@@ -42,7 +42,7 @@
 		</div>
 
 		{#if titleVisible}
-			<h1 class="h1 mt-8 text-amber-900" transition:typewriter={{ speed: 2 }}>EspressOS</h1>
+			<h1 class="h1 mt-8 text-[#92672e]" transition:typewriter={{ speed: 2 }}>EspressOS</h1>
 		{/if}
 	</div>
 {:else}

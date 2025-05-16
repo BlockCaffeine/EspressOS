@@ -12,3 +12,10 @@ html,
 body {
   @apply h-full;
 }
+
+.floating {
+	width: max-content;
+	position: absolute;
+	top: 0;
+	left: 0;
+}

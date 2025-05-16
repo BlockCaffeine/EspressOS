@@ -10,7 +10,6 @@ export async function listenForChainChanges() {
 
 	provider.on('chainChanged', async (chainIdHex: string) => {
 		const chainId = parseInt(chainIdHex, 16);
-		console.log('chainChanged to', chainId);
 
 		if (chainId !== 585858) {
 			resetWalletState();
@@ -55,7 +54,6 @@ export function listenForAccountChanges() {
 	if (!provider?.on) return;
 
 	provider.on('accountsChanged', async (accounts: string[]) => {
-		console.log('accountsChanged', accounts);
 		const account = accounts[0];
 
 		if (!account) {

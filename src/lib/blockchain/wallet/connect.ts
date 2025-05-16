@@ -38,8 +38,6 @@ export async function connectMetamaskWallet() {
 		await fetchBalance(account);
 		listenForChainChanges();
 		listenForAccountChanges();
-
-		console.log('Listeners registered');
 	} catch (error) {
 		console.error(error);
 		toastFactory.create({

@@ -18,8 +18,8 @@
 	class="card border-surface-200-800 divide-surface-200-800 block w-10/12 divide-y border-[1px] bg-white shadow-2xl"
 >
 	<header class="flex flex-col items-center gap-2 p-4">
-		<h3 class="h3 text-amber-950">Connect Wallet</h3>
-		<small class="text-center tracking-tighter text-amber-950 opacity-60">
+		<h3 class="h3">Connect Wallet</h3>
+		<small class="text-center tracking-tighter opacity-60">
 			You need a wallet to reach behind this wall, we don't want brokies.
 		</small>
 	</header>
@@ -41,13 +41,13 @@
 				<Avatar name="Metamask Logo" background="bg-primary-900-100">
 					<MetamaskIcon width={36} />
 				</Avatar>
-				<h4 class="h4 flex items-center pr-3 text-amber-950">Metamask</h4>
+				<h3 class="h3 flex items-center pr-3 text-[#6f512a]">Metamask</h3>
 			</button>
 		{/if}
 	</div>
 
 	<footer class="flex flex-col items-center justify-between gap-4 p-4">
-		<small class="tracking-tighter text-amber-950 opacity-60">
+		<small class="text-center tracking-tighter opacity-60">
 			By connecting your wallet, you agree to give team BlockCaffeine free coffee as long as they're
 			students.
 		</small>
