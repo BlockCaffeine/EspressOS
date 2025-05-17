@@ -1,14 +1,23 @@
 import { toastFactory } from '$lib/components/toaster/Toaster';
 import { resetWalletState, walletState } from '$lib/state/WalletState.svelte';
+import type { Address } from 'viem';
 import { getEthereumProvider } from '../provider/getEthereumProvider';
 import { fetchBalance } from './balance';
-import { switchOrAddUniMaChain } from './connect';
+
+let _cleanupAccounts: (() => void) | null = null;
+let _cleanupChains: (() => void) | null = null;
 
 export async function listenForChainChanges() {
 	const provider = getEthereumProvider();
 	if (!provider?.on) return;
 
-	provider.on('chainChanged', async (chainIdHex: string) => {
+	// First, remove any old listener
+	if (_cleanupChains) {
+		_cleanupChains();
+		_cleanupChains = null;
+	}
+
+	async function handleChainChanged(chainIdHex: string) {
 		const chainId = parseInt(chainIdHex, 16);
 
 		if (chainId !== 585858) {
@@ -17,11 +26,7 @@ export async function listenForChainChanges() {
 			toastFactory.create({
 				type: 'error',
 				title: '❌ Network Changed',
-				description: 'You switched networks. Please switch back to the (not) UniMa Chain.',
-				action: {
-					label: 'Switch',
-					onClick: switchOrAddUniMaChain
-				}
+				description: 'You switched networks. Please switch back to the (not) UniMa Chain.'
 			});
 		} else {
 			walletState.connected = true;
@@ -45,15 +50,27 @@ export async function listenForChainChanges() {
 				});
 			}
 		}
-	});
+	}
+
+	// Attach the handler
+	provider.on('chainChanged', handleChainChanged);
+
+	// Save a cleanup function
+	_cleanupChains = () => {
+		provider.removeListener('chainChanged', handleChainChanged);
+	};
 }
 
 export function listenForAccountChanges() {
 	const provider = getEthereumProvider();
-
 	if (!provider?.on) return;
 
-	provider.on('accountsChanged', async (accounts: string[]) => {
+	if (_cleanupAccounts) {
+		_cleanupAccounts();
+		_cleanupAccounts = null;
+	}
+
+	async function handleAccountsChanged(accounts: Address[]) {
 		const account = accounts[0];
 
 		if (!account) {
@@ -61,18 +78,20 @@ export function listenForAccountChanges() {
 			return;
 		}
 
+		walletState.account = account;
+		walletState.connected = true;
+		await fetchBalance(walletState.account);
+
 		toastFactory.create({
 			type: 'success',
 			title: '🔄 Switched Account',
-			description: `You switched your account to ${account}`,
-			action: {
-				label: 'Switch',
-				onClick: switchOrAddUniMaChain
-			}
+			description: `You switched your account to ${account}`
 		});
+	}
 
-		walletState.account = account as `0x${string}`;
-		walletState.connected = true;
-		await fetchBalance(walletState.account);
-	});
+	provider.on('accountsChanged', handleAccountsChanged);
+
+	_cleanupAccounts = () => {
+		provider.removeListener('accountsChanged', handleAccountsChanged);
+	};
 }

@@ -4,6 +4,16 @@
 	import PriceBreakdown from '$lib/components/shop/PriceBreakdown.svelte';
 	import StrengthSelector from '$lib/components/shop/StrengthSelector.svelte';
 	import CoffeeSelector from '$lib/components/shop/CoffeeSelector.svelte';
+	import type { PageProps } from './$types';
+	import { onMount } from 'svelte';
+	import { determineNewPrice, shopState } from '$lib/state/ShopState.svelte';
+
+	let { data }: PageProps = $props();
+
+	onMount(() => {
+		shopState.productPrices = data.productPrices;
+		determineNewPrice();
+	});
 </script>
 
 <div

@@ -3,7 +3,7 @@ import { decodeEventLog, formatEther, type TransactionReceipt } from 'viem';
 import { publicClient } from '../clients/publicClient';
 import { abi } from '../contracts/CafereumAbi.json';
 
-interface FormattedReceipt {
+export interface FormattedReceipt {
 	productType?: string;
 	productStrength?: string;
 	amountUMETH: string;
@@ -28,7 +28,9 @@ export async function formatReceipt(receipt: TransactionReceipt): Promise<Format
 			});
 
 			if (decoded.eventName === 'ProductPurchased') {
-				const args = decoded.args as { productType: string; productStrength: string };
+				// Hacky solution, but working with the chain is really
+				// inconvenient in terms of typing things ..
+				const args = decoded.args as unknown as { productType: string; productStrength: string };
 				productType = args.productType;
 				productStrength = args.productStrength;
 				break;

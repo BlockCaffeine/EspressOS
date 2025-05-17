@@ -23,26 +23,17 @@
 			</a>
 
 			<div class="flex items-center lg:order-2">
-				{#if walletState.connected}
-					<div class="flex flex-col items-end text-xs text-gray-700 sm:text-sm">
-						<div class="flex flex-row gap-1">
-							<Link class="h-4 w-4 text-green-700" />
-							<span class="font-medium">Connected: {shorten(walletState.account)}</span>
-						</div>
-						{#if walletState.balance}
-							<span class="opacity-70">
-								Balance: {formatShortBalance(walletState.balance)}
-							</span>
-						{/if}
+				<div class="flex flex-col items-end text-xs text-gray-700 sm:text-sm">
+					<div class="flex flex-row gap-1">
+						<Link class="h-4 w-4 text-green-700" />
+						<span class="font-medium">Connected: {shorten(walletState.account)}</span>
 					</div>
-				{:else}
-					<button
-						onclick={switchOrAddUniMaChain}
-						class="rounded-lg px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 focus:outline-none"
-					>
-						Reconnect Wallet
-					</button>
-				{/if}
+					{#if walletState.balance >= 0n}
+						<span class="opacity-70">
+							Balance: {formatShortBalance(walletState.balance)}
+						</span>
+					{/if}
+				</div>
 			</div>
 		</div>
 	</nav>

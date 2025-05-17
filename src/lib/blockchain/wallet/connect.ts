@@ -16,17 +16,21 @@ export async function connectMetamaskWallet() {
 	try {
 		walletState.isConnecting = true;
 
-		const isCorrectNetwork = await ensureCorrectNetwork();
+		let isCorrectNetwork = await ensureCorrectNetwork();
 
 		if (!isCorrectNetwork) {
-			toastFactory.create({
-				type: 'error',
-				title: '❌ Wrong Network Detected',
-				description:
-					'Please switch to the (not) UniMa Network (Chain ID: 585858) in MetaMask and try again.'
-			});
-
-			return;
+			// Try once to switch automatically.
+			await switchOrAddUniMaChain();
+			// re-read chainId after switch
+			isCorrectNetwork = await ensureCorrectNetwork();
+			if (!isCorrectNetwork) {
+				toastFactory.create({
+					type: 'error',
+					title: '❌ Wrong Network',
+					description: `Please switch to (not) UniMa Chain (ID ${uniMaChain.id}) and try again.`
+				});
+				return;
+			}
 		}
 
 		const accounts = await getWalletClient().requestAddresses();
@@ -35,11 +39,12 @@ export async function connectMetamaskWallet() {
 		walletState.account = account;
 		walletState.connected = true;
 
-		await fetchBalance(account);
 		listenForChainChanges();
 		listenForAccountChanges();
+		await fetchBalance(account);
 	} catch (error) {
 		console.error(error);
+
 		toastFactory.create({
 			type: 'error',
 			title: '⚠️ Connection Failed',
@@ -74,7 +79,7 @@ export async function switchOrAddUniMaChain() {
 							symbol: 'UMETH',
 							decimals: 18
 						},
-						rpcUrls: ['http://134.155.52.185:32779'],
+						rpcUrls: ['https://fortuna.informatik.uni-mannheim.de:32779'],
 						blockExplorerUrls: []
 					}
 				]
