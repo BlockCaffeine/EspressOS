@@ -1,0 +1,26 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:recommended"],
+	"packageRules": [
+		{
+			"groupName": "tailwind and friends",
+			"matchPackageNames": ["@tailwindcss/*"]
+		},
+		{
+			"groupName": "eslint and friends",
+			"matchPackageNames": ["eslint/*"]
+		},
+		{
+			"groupName": "prettier and friends",
+			"matchPackageNames": ["prettier/*"]
+		},
+		{
+			"groupName": "Dev dependencies",
+			"matchDepTypes": ["devDependencies"],
+			"matchUpdateTypes": ["minor", "patch"],
+			"prPriority": -1
+		}
+	],
+	"postUpdateOptions": ["pnpmDedupe"],
+	"reviewers": ["team:maintainer"]
+}
