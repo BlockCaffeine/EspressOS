@@ -12,8 +12,8 @@ importers:
         specifier: ^0.482.0
         version: 0.482.0(svelte@5.30.1)
       '@metamask/providers':
-        specifier: ^21.0.0
-        version: 21.0.0(webextension-polyfill@0.12.0)
+        specifier: ^22.0.0
+        version: 22.1.0(webextension-polyfill@0.12.0)
       '@zag-js/listbox':
         specifier: ^1.12.3
         version: 1.12.3
@@ -396,8 +396,8 @@ packages:
     resolution: {integrity: sha512-4vKIiv0DQxljcXwfpnbsXcfa5glMj5Zg9mqn4xpIWqkv6uJ2ma5/GtUfLFSxhlxnR8asRMv8dDmWya1Tc1sDFA==}
     engines: {node: ^16.20 || ^18.16 || >=20}
 
-  '@metamask/providers@21.0.0':
-    resolution: {integrity: sha512-qSKfQQYX4AsKxWcalJjmIce557wa9KWlRqSzMbmpcC2ULo3JlYCfJIi42u3mooaPxK2l+9AdtzLSVbLRsBYnPA==}
+  '@metamask/providers@22.1.0':
+    resolution: {integrity: sha512-lu639mkH78GLSLVUGW+XI6viHI5NAOwoJe+B9OmQm/rVmLuvy2ZSQVrsrT3n00Pt1WLeq1J6Ee/gML3RxVc4Aw==}
     engines: {node: ^18.18 || >=20}
     peerDependencies:
       webextension-polyfill: ^0.10.0 || ^0.11.0 || ^0.12.0
@@ -2434,7 +2434,7 @@ snapshots:
       once: 1.4.0
       readable-stream: 3.6.2
 
-  '@metamask/providers@21.0.0(webextension-polyfill@0.12.0)':
+  '@metamask/providers@22.1.0(webextension-polyfill@0.12.0)':
     dependencies:
       '@metamask/json-rpc-engine': 10.0.3
       '@metamask/json-rpc-middleware-stream': 8.0.7
@@ -3852,7 +3852,7 @@ snapshots:
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
       '@noble/curves': 1.8.2
-      '@noble/hashes': 1.7.2
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
       abitype: 1.0.8(typescript@5.8.3)(zod@3.24.4)
