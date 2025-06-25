@@ -1,6 +1,7 @@
 import { defineChain, type Address } from 'viem';
+import { env } from '$env/dynamic/public';
 
-export const cafereumAddress: Address = '0xC495f6FF1912FB7cC33C65c3f8542aE78044D3C0';
+export const cafereumAddress: Address = env.PUBLIC_CAFEREUM_ADDRESS as Address;
 
 export const uniMaChain = defineChain({
 	id: 585858,
