@@ -1,5 +1,8 @@
 <script lang="ts">
-	import coffeeOrderImage from '$lib/assets/coffeeOrderCardImage.avif';
+	import singleCoffeeImg from '$lib/assets/single-coffee.png';
+	import doubleCoffeeImg from '$lib/assets/double-coffee.png';
+	import singleEspressoImg from '$lib/assets/single-espresso.png';
+	import doubleEspressoImg from '$lib/assets/double-espresso.png';
 	import ConfirmOrderButton from '$lib/components/shop/ConfirmOrderButton.svelte';
 	import PriceBreakdown from '$lib/components/shop/PriceBreakdown.svelte';
 	import StrengthSelector from '$lib/components/shop/StrengthSelector.svelte';
@@ -13,6 +16,16 @@
 	onMount(() => {
 		shopState.productPrices = data.productPrices;
 		determineNewPrice();
+	});
+
+	// reactive “computed” image URL
+	let coffeeOrderImage: string = $state(singleCoffeeImg);
+	$effect(() => {
+		const { selectedCoffeeType: type, selectedCoffeeSize: size } = shopState;
+		if (type === 'coffee' && size === 'single') coffeeOrderImage = singleCoffeeImg;
+		else if (type === 'coffee' && size === 'double') coffeeOrderImage = doubleCoffeeImg;
+		else if (type === 'espresso' && size === 'single') coffeeOrderImage = singleEspressoImg;
+		else /* espresso & double */ coffeeOrderImage = doubleEspressoImg;
 	});
 </script>
 

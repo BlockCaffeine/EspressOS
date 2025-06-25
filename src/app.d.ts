@@ -8,6 +8,10 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	interface Window {
+		ethereum: EIP1193Provider & { chainId?: string };
+	}
 }
 
 export {};

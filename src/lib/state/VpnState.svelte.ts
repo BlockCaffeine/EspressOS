@@ -1,12 +1,12 @@
-export type VpnStatus = 'checking' | 'online' | 'offline';
+export type VpnStatus = 'checking' | 'online' | 'offline' | 'initial';
 
 export interface VpnState {
 	status: VpnStatus;
 }
 export const vpnState: VpnState = $state({
-	status: 'checking'
+	status: 'initial'
 });
 
 export function resetWalletState() {
-	vpnState.status = 'checking';
+	vpnState.status = 'initial';
 }

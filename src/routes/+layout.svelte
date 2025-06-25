@@ -2,17 +2,19 @@
 	import '../app.css';
 	import { Toaster } from '@skeletonlabs/skeleton-svelte';
 	import { toastFactory } from '$lib/components/toaster/Toaster';
+	import VpnOverlay from '$lib/components/layout/VpnOverlay.svelte';
 
 	let { children } = $props();
 </script>
 
-<div class="h-svh bg-[#FAF9F6]">
-	{@render children()}
-	<script lang="ts">
-		import { Toaster } from '@skeletonlabs/skeleton-svelte';
-		import { toastFactory } from '$lib/components/toaster/Toaster';
-	</script>
+<!-- Use flex layout so children can size themselves -->
+<div class="flex min-h-screen flex-col bg-[#FAF9F6]">
+	<!-- Render page content, allowing it to grow -->
+	<main class="flex-1 overflow-auto">
+		{@render children()}
+	</main>
 
+	<!-- Toaster & VPN overlay always on top -->
 	<Toaster
 		toaster={toastFactory}
 		base="fixed z-50 flex flex-row gap-4"
@@ -30,4 +32,5 @@
 		stateWarning="bg-yellow-50 border-l-4 border-yellow-600 text-yellow-800"
 		stateInfo="bg-blue-50 border-l-4 border-blue-600 text-blue-800"
 	/>
+	<VpnOverlay />
 </div>

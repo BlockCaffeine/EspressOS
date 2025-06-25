@@ -7,24 +7,26 @@
 	let { children } = $props();
 </script>
 
-<div class="relative grid h-screen grid-rows-[auto_1fr_auto]">
+<!-- Flex-col with sticky header/footer, main scrolls -->
+<div class="relative flex min-h-screen flex-col">
 	<!-- Header -->
 	<header class="sticky top-0 z-10 backdrop-blur-md">
 		<AppHeader />
 	</header>
-	<!-- Main Content -->
+
+	<!-- Main Content: grows and scrolls internally -->
 	<main
-		class={`space-y-4 p-4 transition-opacity duration-300 ${walletState.connected ? '' : 'pointer-events-none opacity-50 select-none'}`}
+		class="flex-1 space-y-4 overflow-auto p-4 transition-opacity duration-300
+      {walletState.connected ? '' : 'pointer-events-none opacity-50 select-none'}"
 	>
 		{@render children()}
 	</main>
+
 	<!-- Bottom Navigation -->
 	<footer class="sticky bottom-0 z-50">
 		<BottomNavigation />
 	</footer>
 
-	<!-- Overlay if wallet not connected -->
-	{#if !walletState.connected}
-		<DisconnectOverlay />
-	{/if}
+	<!-- Overlay when wallet disconnected -->
+	<DisconnectOverlay />
 </div>

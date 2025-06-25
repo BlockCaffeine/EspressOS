@@ -6,7 +6,8 @@ import type { Address } from 'viem';
 export interface RawStats {
 	totalPurchases: bigint;
 	moneySpent: bigint;
-	[key: string]: bigint; // for extensibility
+	favCategory: string;
+	favCount: bigint;
 }
 
 export async function fetchRawStats(user: Address): Promise<RawStats> {
@@ -30,7 +31,7 @@ export async function fetchRawStats(user: Address): Promise<RawStats> {
 			functionName: 'getMostFrequentlyOrderedCategory',
 			args: [user]
 		})
-	])) as [bigint, bigint, [bigint, bigint]];
+	])) as [bigint, bigint, [string, bigint]];
 	const [favCategory, favCount] = favTuple;
 
 	return { totalPurchases, moneySpent, favCategory, favCount };
@@ -60,13 +61,13 @@ export async function fetchRawStatsWithMulticall(user: Address): Promise<RawStat
 	});
 
 	// now `results` is unknown[] that you can destructure
-	const [totalPurchases, moneySpent, favTuple] = results as [bigint, bigint, [bigint, bigint]];
+	const [totalPurchases, moneySpent, favTuple] = results as [bigint, bigint, [string, bigint]];
 	const [favCategory, favCount] = favTuple;
 
 	return {
 		totalPurchases,
 		moneySpent,
-		favCategory, // e.g. 0=coffee,1=espresso
+		favCategory,
 		favCount
 	};
 }

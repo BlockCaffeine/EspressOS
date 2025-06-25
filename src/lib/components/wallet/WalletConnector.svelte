@@ -5,9 +5,14 @@
 	import { connectMetamaskWallet } from '$lib/blockchain/wallet/connect';
 	import { walletState } from '$lib/state/WalletState.svelte';
 	import { goto } from '$app/navigation';
+	import { vpnState } from '$lib/state/VpnState.svelte';
 
 	$effect(() => {
-		if (walletState.connected && walletState.account.startsWith('0x')) {
+		if (
+			walletState.connected &&
+			walletState.account.startsWith('0x') &&
+			vpnState.status === 'online'
+		) {
 			goto('/app/shop');
 		}
 	});
