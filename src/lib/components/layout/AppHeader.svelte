@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { switchOrAddUniMaChain } from '$lib/blockchain/wallet/connect';
 	import { walletState } from '$lib/state/WalletState.svelte';
 	import { Link } from '@lucide/svelte';
 	import { formatEther } from 'viem';
@@ -15,7 +14,7 @@
 </script>
 
 <header>
-	<nav class="rounded-b-xl border-gray-200 bg-white px-4 py-2.5 lg:px-6">
+	<nav class="rounded-b-xl border-gray-200 bg-[#DCC6AE] px-4 py-2.5 lg:px-6">
 		<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between">
 			<a href="/app" class="flex items-center">
 				<img alt="Logo of BlockCaffeine" class="mb-2 h-10 w-10" src={Logo} />

@@ -9,7 +9,7 @@
 	<p class="mb-6 px-8 text-sm opacity-80">
 		Please reconnect MetaMask to continue ordering your coffee.
 	</p>
-	<button type="button" onclick={connectMetamaskWallet} class="btn preset-filled-secondary-500">
+	<button type="button" onclick={connectMetamaskWallet} class="btn bg-[#DCC6AE]">
 		Reconnect MetaMask
 	</button>
 </div>

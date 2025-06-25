@@ -5,24 +5,27 @@ import { walletState } from '$lib/state/WalletState.svelte';
 import { toastFactory } from '$lib/components/toaster/Toaster';
 import { getWalletClient } from '../clients/walletClient';
 import { uniMaChain } from '../chains/uniMaChain';
-import { getChainId } from 'viem/actions';
 
-async function ensureCorrectNetwork(): Promise<boolean> {
-	const currentChainId = await getChainId(getWalletClient());
-	return currentChainId === uniMaChain.id;
+function ensureCorrectNetwork(): boolean {
+	const provider = getEthereumProvider(); // Safely get the provider
+
+	const current = provider.chainId;
+	const target = `0x${uniMaChain.id.toString(16)}`;
+
+	return current === target;
 }
 
 export async function connectMetamaskWallet() {
 	try {
 		walletState.isConnecting = true;
 
-		let isCorrectNetwork = await ensureCorrectNetwork();
+		let isCorrectNetwork = ensureCorrectNetwork();
 
 		if (!isCorrectNetwork) {
 			// Try once to switch automatically.
 			await switchOrAddUniMaChain();
 			// re-read chainId after switch
-			isCorrectNetwork = await ensureCorrectNetwork();
+			isCorrectNetwork = ensureCorrectNetwork();
 			if (!isCorrectNetwork) {
 				toastFactory.create({
 					type: 'error',
@@ -64,6 +67,7 @@ export async function switchOrAddUniMaChain() {
 			method: 'wallet_switchEthereumChain',
 			params: [{ chainId: `0x${uniMaChain.id.toString(16)}` }] // hex of 585858
 		});
+
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (switchError: any) {
 		if (switchError.code === 4902) {

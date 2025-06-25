@@ -9,7 +9,7 @@
 	value={shopState.selectedCoffeeStrength}
 	onValueChange={(e) => (shopState.selectedCoffeeStrength = e.value as CoffeeStrength)}
 	classes="flex justify-center space-x-4 w-full"
-	indicatorBg="bg-[#dcb98c]"
+	indicatorBg="bg-[#DCC6AE]"
 >
 	<Segment.Item value="mild" classes="px-1 py-2 rounded-full text-sm font-medium">
 		Mild

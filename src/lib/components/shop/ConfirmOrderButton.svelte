@@ -53,7 +53,7 @@
 	open={shopState.confirmationModalOpen}
 	onOpenChange={handleOpenChange}
 	contentBase="card bg-white p-6 rounded-2xl shadow-xl max-w-md mx-auto"
-	triggerBase="flex w-full items-center justify-center gap-2 rounded-lg bg-[#dcb98c] py-3 font-semibold text-white transition"
+	triggerBase="flex w-full items-center justify-center gap-2 rounded-lg bg-[#DCC6AE] py-3 font-semibold text-white transition"
 	backdropClasses="backdrop-blur-sm"
 >
 	{#snippet trigger()}
@@ -73,14 +73,14 @@
 		<footer class="mt-6 flex justify-end gap-3">
 			<button
 				type="button"
-				class="flex w-2/5 items-center justify-center gap-2 rounded-lg bg-[#e5e0da] py-3 text-sm text-[#474441] transition"
+				class="flex w-2/5 items-center justify-center gap-2 rounded-lg bg-[#DCC6AE] py-3 text-sm text-[#474441] transition hover:bg-[#B88C6A]"
 				on:click={onConfirmNo}
 			>
 				❌ Not Ready
 			</button>
 			<button
 				type="button"
-				class="flex w-2/5 items-center justify-center gap-2 rounded-lg bg-[#dcb98c] py-3 text-sm text-white transition"
+				class="flex w-2/5 items-center justify-center gap-2 rounded-lg bg-[#DCC6AE] py-3 text-sm text-white transition hover:bg-[#B88C6A]"
 				on:click={onConfirmYes}
 			>
 				✅ Yes, Brew!

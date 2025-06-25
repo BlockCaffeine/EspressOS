@@ -16,6 +16,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>BlockCaffeine - Buy A Coffee</title>
+</svelte:head>
+
 <div
 	class="card preset-filled-surface-100-900 border-surface-200-800 flex h-[calc(100vh-164px)] flex-col overflow-hidden rounded-xl border-[1px]"
 >
@@ -24,7 +28,7 @@
 	</header>
 	<article class="space-y-4 overflow-y-auto p-6">
 		<!-- Title -->
-		<h2 class="text-2xl font-semibold text-gray-900">Order Coffee</h2>
+		<h2 class="text-2xl font-semibold text-[#6F4E37]">Order Coffee</h2>
 		<!-- Strength Selector -->
 		<div class="flex flex-col space-y-3">
 			<CoffeeSelector />

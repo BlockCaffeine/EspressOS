@@ -8,7 +8,7 @@
 
 	$effect(() => {
 		if (walletState.connected && walletState.account.startsWith('0x')) {
-			goto('/app');
+			goto('/app/shop');
 		}
 	});
 </script>
@@ -35,7 +35,7 @@
 		{:else}
 			<button
 				type="button"
-				class="preset-filled-secondary-500 btn flex w-10/12 justify-between rounded-4xl p-3"
+				class="btn flex w-10/12 justify-between rounded-4xl bg-[#DCC6AE] p-3"
 				onclick={connectMetamaskWallet}
 			>
 				<Avatar name="Metamask Logo" background="bg-primary-900-100">

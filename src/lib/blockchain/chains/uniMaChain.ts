@@ -1,6 +1,6 @@
-import { defineChain } from 'viem';
+import { defineChain, type Address } from 'viem';
 
-export const cafereumAddress = '0xfA87eB3A4a16D9df4FFdC9167EC4E24BA3382c57';
+export const cafereumAddress: Address = '0xC495f6FF1912FB7cC33C65c3f8542aE78044D3C0';
 
 export const uniMaChain = defineChain({
 	id: 585858,

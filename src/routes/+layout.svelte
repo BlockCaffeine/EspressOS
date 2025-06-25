@@ -6,7 +6,7 @@
 	let { children } = $props();
 </script>
 
-<div class="h-svh bg-[#dcb98c]">
+<div class="h-svh bg-[#FAF9F6]">
 	{@render children()}
 	<script lang="ts">
 		import { Toaster } from '@skeletonlabs/skeleton-svelte';

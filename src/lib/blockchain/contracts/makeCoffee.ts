@@ -17,15 +17,7 @@ export async function orderCoffee(): Promise<TransactionReceipt> {
 		const productType = productTypeMap[selectedCoffeeType][selectedCoffeeSize];
 		const productStrength = strengthMap[selectedCoffeeStrength];
 
-		// 2) get price
-		const price = await publicClient.readContract({
-			address: cafereumAddress,
-			abi,
-			functionName: 'productPrices',
-			args: [productType]
-		});
-
-		// 3) send tx
+		// 2) send tx
 		const txHash = await walletClient.writeContract({
 			address: cafereumAddress,
 			abi,
@@ -33,7 +25,7 @@ export async function orderCoffee(): Promise<TransactionReceipt> {
 			account,
 			chain: uniMaChain,
 			args: [productType, productStrength],
-			value: price as bigint
+			value: shopState.selectedCoffeePrice as bigint
 		});
 
 		// 4) wait & return
