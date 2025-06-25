@@ -1,5 +1,6 @@
 import type { ProductPrice } from '$lib/blockchain/helper/getProductPrices';
 import { productTypeMap } from '$lib/blockchain/helper/mappings';
+import { parseEther } from 'viem';
 
 export type CoffeeType = 'coffee' | 'espresso';
 export type CoffeeSize = 'single' | 'double';
@@ -11,7 +12,7 @@ export interface ShopState {
 	selectedCoffeeStrength: CoffeeStrength;
 	confirmationModalOpen: boolean;
 	productPrices: ProductPrice[];
-	selectedCoffeePrice: number;
+	selectedCoffeePrice: bigint;
 }
 export const shopState: ShopState = $state({
 	selectedCoffeeType: 'coffee',
@@ -19,7 +20,7 @@ export const shopState: ShopState = $state({
 	selectedCoffeeStrength: 'normal',
 	confirmationModalOpen: false,
 	productPrices: [],
-	selectedCoffeePrice: -1
+	selectedCoffeePrice: -1n
 });
 
 export function resetShopState() {
@@ -32,9 +33,8 @@ export function resetShopState() {
 export function determineNewPrice() {
 	const name = productTypeMap[shopState.selectedCoffeeType][shopState.selectedCoffeeSize];
 	const entry = shopState.productPrices.find((p) => p.name === name);
-	const newPrice = parseFloat(entry?.priceUMETH ?? '0');
-
-	console.log('New price should be: ', newPrice);
-
-	shopState.selectedCoffeePrice = newPrice;
+	const raw = entry?.priceUMETH ?? '0'; // e.g. "0.01", "0.02"
+	// parseEther will throw if you give it something non‐numeric, so it's
+	// still safe against malformed strings
+	shopState.selectedCoffeePrice = parseEther(raw);
 }

@@ -6,10 +6,9 @@
 	function typewriter(node: Element, { speed }: { speed: number }): TransitionConfig {
 		const text = node.textContent!;
 		const duration = text.length / (speed * 0.01);
-
 		return {
 			duration,
-			tick: (t: number) => {
+			tick: (t) => {
 				const i = Math.trunc(text.length * t);
 				node.textContent = text.slice(0, i);
 			}
@@ -19,19 +18,15 @@
 	let titleVisible = false;
 	let showMetamask = false;
 
-	setTimeout(() => {
-		titleVisible = true;
-	}, 1500);
-
-	setTimeout(() => {
-		showMetamask = true;
-	}, 3000);
+	setTimeout(() => (titleVisible = true), 1500);
+	setTimeout(() => (showMetamask = true), 3000);
 </script>
 
 {#if !showMetamask}
+	<!-- fill the viewport and center -->
 	<div
 		data-element="animation-wrapper"
-		class="box-border flex h-full flex-col items-center justify-center"
+		class="fixed inset-0 flex flex-col items-center justify-center bg-[#FAF9F6]"
 		out:fly={{ y: -500, duration: 750 }}
 	>
 		<div class="cup" style={`background-image: url(${coffeeBg});`}>
@@ -46,7 +41,11 @@
 		{/if}
 	</div>
 {:else}
-	<div data-element="homepage-wrapper" class="flex h-full w-full items-center justify-center">
+	<!-- same for your wallet connector -->
+	<div
+		data-element="homepage-wrapper"
+		class="fixed inset-0 flex items-center justify-center bg-[#FAF9F6]"
+	>
 		<WalletConnector />
 	</div>
 {/if}
