@@ -16,7 +16,6 @@
 			});
 
 			// Our proxy will update the status if successful, but TypeScript doesn't know about it.
-			console.log(vpnState);
 			// @ts-ignore
 			if (vpnState.status === 'online') window.location.reload();
 		} catch {

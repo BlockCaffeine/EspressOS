@@ -92,7 +92,6 @@ export async function reloadStatistics(user: Address) {
 		statistics.raw = raw;
 		statistics.purchases = purchases;
 		statistics.chartData = computeStackedChartData(purchases, user, 8);
-		console.log(raw, purchases);
 	} catch (err) {
 		statistics.error = err as Error;
 	} finally {
