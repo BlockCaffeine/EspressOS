@@ -20,7 +20,7 @@
 		"verify": "run-s package:check format:check check lint clean build"
 	},
 	"dependencies": {
-		"@lucide/svelte": "^0.482.0",
+		"@lucide/svelte": "^0.525.0",
 		"@metamask/providers": "^21.0.0",
 		"@zag-js/listbox": "^1.12.3",
 		"@zag-js/svelte": "^1.12.3",
