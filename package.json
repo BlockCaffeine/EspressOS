@@ -21,7 +21,7 @@
 	},
 	"dependencies": {
 		"@lucide/svelte": "^0.482.0",
-		"@metamask/providers": "^21.0.0",
+		"@metamask/providers": "^22.0.0",
 		"@zag-js/listbox": "^1.12.3",
 		"@zag-js/svelte": "^1.12.3",
 		"@zag-js/utils": "^1.12.3",
